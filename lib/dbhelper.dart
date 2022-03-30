@@ -5,9 +5,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_sql/Model/item.dart';
 
 class DbHelper {
-  static DbHelper _dbHelper;
-  static Database _database; 
+  static DbHelper? _dbHelper;
+  static Database? _database; 
   DbHelper._createObject();
+
   Future<Database> initDb() async {
 
   //untuk menentukan nama database dan lokasi yg dibuat
@@ -77,13 +78,13 @@ class DbHelper {
     if (_dbHelper == null) {
     _dbHelper = DbHelper._createObject();
     }
-  return _dbHelper;
+  return _dbHelper!;
   }
 
   Future<Database> get database async {
     if (_database == null) {
     _database = await initDb();
     }
-  return _database;
+  return _database!;
   }
 }

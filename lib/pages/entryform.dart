@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sql/Model/item.dart';
 
 class EntryForm extends StatefulWidget {
-  final Item item;
+ Item? item;
 
-  EntryForm(this.item);
+  EntryForm({Key? key, required this.item}) : super(key: key);
 
   @override
   EntryFormState createState() => EntryFormState(this.item);
@@ -12,16 +12,17 @@ class EntryForm extends StatefulWidget {
 
 //class controller
 class EntryFormState extends State<EntryForm> {
-  Item item;
+  Item? item;
   EntryFormState(this.item);
   TextEditingController nameController = TextEditingController();
   TextEditingController priceController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     //kondisi
     if (item != null) {
-      nameController.text = item.name;
-      priceController.text = item.price.toString();
+      nameController.text = item!.name;
+      priceController.text = item!.price.toString();
     }
     //rubah
     return Scaffold(
@@ -62,11 +63,10 @@ class EntryFormState extends State<EntryForm> {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                   ),
-                  onChanged: (value) {
-                    //
-                  },
+                  onChanged: (value) {},
                 ),
               ),
+              
               // tombol button
               Padding(
                 padding: EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -84,11 +84,12 @@ class EntryFormState extends State<EntryForm> {
                         onPressed: () {
                           if (item == null) {
                             // tambah data
-                            item = Item(nameController.text, int.parse(priceController.text));
+                            item = Item(nameController.text, 
+                              int.parse(priceController.text));
                           } else {
                             // ubah data
-                            item.name = nameController.text;
-                            item.price = int.parse(priceController.text);
+                            item!.name = nameController.text;
+                            item!.price = int.parse(priceController.text);
                           }
                           // kembali ke layar sebelumnya dengan membawa objek item
                           Navigator.pop(context, item);
